@@ -19,7 +19,7 @@
   <script>
     const sheetID = '2PACX-1vRp3SFVLvTIGK15Q0L5O_UREXFBQmnjfkbHYVPqYJlcUuNUt_OE_Nx9Cuo56uZ1ARZbEJ0mzoeA7Atz';
     const sheetName = 'Hoja1';
-    const url = `https://opensheet.elk.sh/${sheetID}/${sheetName}`;
+    const url = `https://opensheet.elk.sh/2PACX-1vRp3SFVLvTIGK15Q0L5O_UREXFBQmnjfkbHYVPqYJlcUuNUt_OE_Nx9Cuo56uZ1ARZbEJ0mzoeA7Atz`;
 
     async function actualizar() {
       const res = await fetch(url);
@@ -29,7 +29,7 @@
 
       data.forEach(({ ["Nombre Comprador"]: nombre, Estado }) => {
         const div = document.createElement("div");
-        div.className = `estado ${Estado.replace(" ", "")}`;
+        div.className = `estado ${Estado.replace(/\s/g, '')}`;
         div.textContent = `${nombre} - ${Estado}`;
         panel.appendChild(div);
       });
