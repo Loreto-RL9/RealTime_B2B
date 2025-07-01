@@ -18,7 +18,7 @@ h1 {
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 .Disponible { background: #d4edda; color: #155724; }
-.Ocupado { background: #f8d7da; color: #721c24; }
+.Ocupado { background: #a35b00; color: #721c24; }
 .Break { background: #fff3cd; color: #856404; }
 #timestamp {
   margin-top: 2rem;
