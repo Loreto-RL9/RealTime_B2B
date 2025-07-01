@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Estado Compradores B2B</title>
+  <style>
+    body { font-family: Arial; background: #f0f0f0; padding: 2rem; }
+    h1 { text-align: center; }
+    .estado { font-size: 1.2rem; padding: 1rem; margin: 1rem; border-radius: 10px; }
+    .Disponible { background: #d4edda; color: #155724; }
+    .Ocupado { background: #f8d7da; color: #721c24; }
+    .EnBreak { background: #fff3cd; color: #856404; }
+  </style>
+</head>
+<body>
+  <h1>Disponibilidad de Compradores</h1>
+  <div id="panel"></div>
+
+  <script>
+    const sheetID = 'TU_ID_AQUI';
+    const sheetName = 'Hoja1';
+    const url = `https://opensheet.elk.sh/${sheetID}/${sheetName}`;
+
+    async function actualizar() {
+      const res = await fetch(url);
+      const data = await res.json();
+      const panel = document.getElementById("panel");
+      panel.innerHTML = "";
+
+      data.forEach(({ ["Nombre Comprador"]: nombre, Estado }) => {
+        const div = document.createElement("div");
+        div.className = `estado ${Estado.replace(" ", "")}`;
+        div.textContent = `${nombre} - ${Estado}`;
+        panel.appendChild(div);
+      });
+    }
+
+    actualizar();
+    setInterval(actualizar, 5000); // cada 5 segundos
+  </script>
+</body>
+</html>
