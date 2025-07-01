@@ -1,0 +1,27 @@
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  padding: 2rem;
+  text-align: center;
+}
+h1 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+.estado {
+  padding: 1rem;
+  margin: 1rem auto;
+  border-radius: 10px;
+  max-width: 600px;
+  font-size: 1.2rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+.Disponible { background: #d4edda; color: #155724; }
+.Ocupado { background: #f8d7da; color: #721c24; }
+.Break { background: #fff3cd; color: #856404; }
+#timestamp {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #888;
+}
