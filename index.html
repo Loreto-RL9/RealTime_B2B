@@ -4,9 +4,24 @@
   <meta charset="UTF-8" />
   <title>Estado Compradores B2B</title>
   <style>
-    body { font-family: Arial; background: #f0f0f0; padding: 2rem; }
-    h1 { text-align: center; }
-    .estado { font-size: 1.2rem; padding: 1rem; margin: 1rem; border-radius: 10px; }
+    body {
+      font-family: Arial;
+      background: #f0f0f0;
+      padding: 2rem;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+    }
+    .estado {
+      font-size: 1.2rem;
+      padding: 1rem;
+      margin: 1rem auto;
+      border-radius: 10px;
+      max-width: 600px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
     .Disponible { background: #d4edda; color: #155724; }
     .Ocupado { background: #f8d7da; color: #721c24; }
     .EnBreak { background: #fff3cd; color: #856404; }
@@ -18,25 +33,29 @@
 
   <script>
     const sheetID = '2PACX-1vRp3SFVLvTIGK15Q0L5O_UREXFBQmnjfkbHYVPqYJlcUuNUt_OE_Nx9Cuo56uZ1ARZbEJ0mzoeA7Atz';
-    const sheetName = 'Hoja 1';
-    const url = `https://opensheet.elk.sh/2PACX-1vRp3SFVLvTIGK15Q0L5O_UREXFBQmnjfkbHYVPqYJlcUuNUt_OE_Nx9Cuo56uZ1ARZbEJ0mzoeA7Atz`;
+    const sheetName = 'Estado'; // Asegúrate que la pestaña realmente se llama así
+    const url = `https://opensheet.elk.sh/${sheetID}/${sheetName}`;
 
     async function actualizar() {
-      const res = await fetch(url);
-      const data = await res.json();
-      const panel = document.getElementById("panel");
-      panel.innerHTML = "";
+      try {
+        const res = await fetch(url);
+        const data = await res.json();
+        const panel = document.getElementById("panel");
+        panel.innerHTML = "";
 
-      data.forEach(({ ["Nombre Comprador"]: nombre, Estado }) => {
-        const div = document.createElement("div");
-        div.className = `estado ${Estado.replace(/\s/g, '')}`;
-        div.textContent = `${nombre} - ${Estado}`;
-        panel.appendChild(div);
-      });
+        data.forEach(({ Compradores: nombre, Disponibilidad: estado, Requerimientos: requerimientos }) => {
+          const div = document.createElement("div");
+          div.className = `estado ${estado.replace(/\s/g, '')}`;
+          div.textContent = `${nombre} - ${estado} (${requerimientos})`;
+          panel.appendChild(div);
+        });
+      } catch (error) {
+        console.error("Error al cargar datos:", error);
+      }
     }
 
     actualizar();
-    setInterval(actualizar, 5000); // cada 5 segundos
+    setInterval(actualizar, 5000);
   </script>
 </body>
 </html>
