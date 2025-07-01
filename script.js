@@ -12,7 +12,7 @@ async function actualizar() {
 
     data.forEach(({ Compradores: nombre, Disponibilidad: estado, Requerimientos: requerimientos }) => {
       const div = document.createElement("div");
-      const emoji = estado === "Disponible" ? "✅" : estado === "Ocupado" ? "❌" : "☕";
+      const emoji = estado === "Disponible" ? "🟢" : estado === "Ocupado" ? "🔴" : "☕";
       div.className = `estado ${estado.replace(/\s/g, '')}`;
       div.innerHTML = `<strong>${emoji} ${nombre}</strong> - ${estado}<br><em>${requerimientos}</em>`;
       panel.appendChild(div);
