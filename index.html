@@ -24,7 +24,7 @@
     }
     .Disponible { background: #d4edda; color: #155724; }
     .Ocupado { background: #f8d7da; color: #721c24; }
-    .EnBreak { background: #fff3cd; color: #856404; }
+    .Break { background: #fff3cd; color: #856404; }
   </style>
 </head>
 <body>
@@ -33,7 +33,7 @@
 
   <script>
     const sheetID = '2PACX-1vRp3SFVLvTIGK15Q0L5O_UREXFBQmnjfkbHYVPqYJlcUuNUt_OE_Nx9Cuo56uZ1ARZbEJ0mzoeA7Atz';
-    const sheetName = 'Estado'; // Asegúrate que la pestaña realmente se llama así
+    const sheetName = 'Estado';
     const url = `https://opensheet.elk.sh/${sheetID}/${sheetName}`;
 
     async function actualizar() {
@@ -46,7 +46,7 @@
         data.forEach(({ Compradores: nombre, Disponibilidad: estado, Requerimientos: requerimientos }) => {
           const div = document.createElement("div");
           div.className = `estado ${estado.replace(/\s/g, '')}`;
-          div.textContent = `${nombre} - ${estado} (${requerimientos})`;
+          div.innerHTML = `<strong>${nombre}</strong> - ${estado}<br><em>${requerimientos}</em>`;
           panel.appendChild(div);
         });
       } catch (error) {
