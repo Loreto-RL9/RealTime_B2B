@@ -1,14 +1,14 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <title>Encuentros B2B</title>
-  <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-  <h1>Disponibilidad encuentros Business to Business</h1>
-  <div id="panel"></div>
-  <div id="timestamp"></div>
-  <script src="script.js"></script>
-</body>
-</html>
+<div style="text-align:center; margin-bottom: 1rem;">
+  <label for="estadoFiltro">Estado:</label>
+  <select id="estadoFiltro">
+    <option value="Todos">Todos</option>
+    <option value="Disponible">Disponible</option>
+    <option value="Ocupado">Ocupado</option>
+    <option value="Break">Break</option>
+  </select>
+
+  <label for="requerimientoFiltro">Requerimiento:</label>
+  <input type="text" id="requerimientoFiltro" placeholder="Buscar..." />
+
+  <button id="toggleCarrusel">⏸️ Pausar</button>
+</div>
