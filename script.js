@@ -18,7 +18,7 @@ botonCarrusel.addEventListener("click", toggleCarrusel);
 
 function toggleCarrusel() {
   pausado = !pausado;
-  botonCarrusel.textContent = pausado ? "▶️ Reanudar" : "⏸️ Pausar";
+  botonCarrusel.textContent = pausado ? "Reanudar" : "Pausar";
 }
 
 async function actualizar() {
