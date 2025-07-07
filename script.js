@@ -2,31 +2,17 @@ const sheetID = '1RNlIfAE7DYteMDfjHWCNi7DIEbsHb6xbxEhfvVSoRsQ';
 const sheetName = 'Estado';
 const url = `https://opensheet.elk.sh/${sheetID}/${sheetName}`;
 
-let grupos = [];
-let indiceGrupo = 0;
-let dataCompleta = [];
+let empresas = [];
+let paginaActual = 0;
 let intervaloCarrusel;
 let pausado = false;
-
-const estadoFiltro = document.getElementById("estadoFiltro");
-const requerimientoFiltro = document.getElementById("requerimientoFiltro");
-const botonCarrusel = document.getElementById("toggleCarrusel");
-
-estadoFiltro.addEventListener("change", aplicarFiltros);
-requerimientoFiltro.addEventListener("input", aplicarFiltros);
-botonCarrusel.addEventListener("click", toggleCarrusel);
-
-function toggleCarrusel() {
-  pausado = !pausado;
-  botonCarrusel.textContent = pausado ? "Reanudar" : "Pausar";
-}
 
 async function actualizar() {
   try {
     const res = await fetch(url);
-    const data = await res.json();
-    dataCompleta = data;
-    aplicarFiltros();
+    empresas = await res.json();
+    paginaActual = 0;
+    renderPagina();
     document.getElementById("timestamp").innerText =
       "Última actualización: " + new Date().toLocaleTimeString();
   } catch (error) {
@@ -34,49 +20,71 @@ async function actualizar() {
   }
 }
 
-function aplicarFiltros() {
-  const estado = estadoFiltro.value;
-  const reqTexto = requerimientoFiltro.value.toLowerCase();
-
-  const filtrados = dataCompleta.filter(item => {
-    const coincideEstado = estado === "Todos" || item.Disponibilidad === estado;
-    const coincideReq = item.Requerimientos?.toLowerCase().includes(reqTexto);
-    return coincideEstado && coincideReq;
-  });
-
-  // Agrupar de 20 en 20
-  grupos = [];
-  for (let i = 0; i < filtrados.length; i += 20) {
-    grupos.push(filtrados.slice(i, i + 20));
-  }
-
-  indiceGrupo = 0;
-  mostrarGrupo(indiceGrupo);
-}
-
-function mostrarGrupo(indice) {
+function renderPagina() {
   const panel = document.getElementById("panel");
   panel.innerHTML = "";
 
-  const grupo = grupos[indice] || [];
+  const estadoFiltro = document.getElementById("filtroEstado").value;
+  const requerimientoFiltro = document.getElementById("filtroRequerimiento").value.toLowerCase();
 
-  grupo.forEach(({ Compradores: nombre, Disponibilidad: estado, Requerimientos: requerimientos }) => {
+  const filtrados = empresas.filter(({ Disponibilidad, Requerimientos }) =>
+    (!estadoFiltro || Disponibilidad === estadoFiltro) &&
+    (!requerimientoFiltro || Requerimientos.toLowerCase().includes(requerimientoFiltro))
+  );
+
+  const start = paginaActual * 20;
+  const pageItems = filtrados.slice(start, start + 20);
+
+  pageItems.forEach(({ Compradores, Disponibilidad, Requerimientos }) => {
     const div = document.createElement("div");
-    const emoji = estado === "Disponible" ? "🟢" : estado === "Ocupado" ? "🟠" : "☕";
-    div.className = `estado ${estado.replace(/\s/g, '')}`;
-    div.innerHTML = `<strong>${emoji} ${nombre}</strong> - ${estado}<br><em>${requerimientos}</em>`;
+    const emoji =
+      Disponibilidad === "Disponible"
+        ? "🟢"
+        : Disponibilidad === "Ocupado"
+        ? "🟠"
+        : "☕";
+    div.className = `estado ${Disponibilidad.replace(/\s/g, '')}`;
+    div.innerHTML = `<strong>${emoji} ${Compradores}</strong> - ${Disponibilidad}<br><em>${Requerimientos}</em>`;
     panel.appendChild(div);
   });
 }
 
-// Actualización cada 10s
-actualizar();
-setInterval(actualizar, 10000);
+function iniciarCarrusel() {
+  intervaloCarrusel = setInterval(() => {
+    const estadoFiltro = document.getElementById("filtroEstado").value;
+    const requerimientoFiltro = document.getElementById("filtroRequerimiento").value.toLowerCase();
+    const filtrados = empresas.filter(({ Disponibilidad, Requerimientos }) =>
+      (!estadoFiltro || Disponibilidad === estadoFiltro) &&
+      (!requerimientoFiltro || Requerimientos.toLowerCase().includes(requerimientoFiltro))
+    );
 
-// Carrusel cada 20s
-intervaloCarrusel = setInterval(() => {
-  if (!pausado && grupos.length > 0) {
-    indiceGrupo = (indiceGrupo + 1) % grupos.length;
-    mostrarGrupo(indiceGrupo);
+    const totalPaginas = Math.ceil(filtrados.length / 20);
+    paginaActual = (paginaActual + 1) % totalPaginas;
+    renderPagina();
+  }, 20000); // cada 20 segundos
+}
+
+document.getElementById("toggleCarrusel").addEventListener("click", () => {
+  pausado = !pausado;
+  const btn = document.getElementById("toggleCarrusel");
+  if (pausado) {
+    clearInterval(intervaloCarrusel);
+    btn.textContent = "▶️ Reanudar";
+  } else {
+    iniciarCarrusel();
+    btn.textContent = "⏸️ Pausar";
   }
-}, 20000);
+});
+
+document.getElementById("filtroEstado").addEventListener("change", () => {
+  paginaActual = 0;
+  renderPagina();
+});
+document.getElementById("filtroRequerimiento").addEventListener("input", () => {
+  paginaActual = 0;
+  renderPagina();
+});
+
+actualizar();
+setInterval(actualizar, 30000); // Refresca datos cada 30 segundos
+iniciarCarrusel();
