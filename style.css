@@ -19,15 +19,22 @@ h1 {
   margin-bottom: 1rem;
 }
 
-/* Contenedor de tarjetas centrado con margen lateral */
+.controls {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
 #panel {
   flex: 1;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 16px;
-  padding: 1rem 5vw; /* ← Márgenes laterales del 5% */
-  overflow-y: auto;
+  gap: 1rem;
+  padding: 1rem 5vw;
   align-content: start;
+  overflow-y: auto;
 }
 
 /* Tarjetas */
@@ -43,7 +50,6 @@ h1 {
   transform: scale(1.03);
 }
 
-/* Colores de estado */
 .Disponible {
   background-color: #ccffd5;
   color: #0b6b2f;
@@ -57,24 +63,9 @@ h1 {
   color: #1d4f91;
 }
 
-/* Texto adicional */
-.requerimientos {
-  font-style: italic;
-  margin-top: 0.5rem;
-  color: #333;
-}
-
-#update-time {
+#timestamp {
   text-align: center;
   margin-top: 1rem;
   font-size: 0.85rem;
   color: #444;
-}
-
-.group {
-  display: none;
-}
-
-.group.active {
-  display: grid;
 }
