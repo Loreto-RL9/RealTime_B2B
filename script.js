@@ -58,7 +58,7 @@ function iniciarCarrusel() {
       (!requerimientoFiltro || Requerimientos.toLowerCase().includes(requerimientoFiltro))
     );
 
-    const totalPaginas = Math.ceil(filtrados.length / 20);
+    const totalPaginas = Math.ceil(filtrados.length / 25);
     paginaActual = (paginaActual + 1) % totalPaginas;
     renderPagina();
   }, 20000); // cada 20 segundos
