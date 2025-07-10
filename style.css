@@ -6,11 +6,18 @@
 
 body {
   font-family: Arial, sans-serif;
-  background-color: #f5f5f5;
   padding: 1rem;
   height: 100vh;
   display: flex;
   flex-direction: column;
+
+  /* Fondo animado estilo blur abstracto */
+  background: radial-gradient(circle at 30% 30%, #ffa96e, transparent 40%),
+              radial-gradient(circle at 70% 70%, #3bc8ff, transparent 40%),
+              radial-gradient(circle at 50% 100%, #34495e, transparent 50%);
+  background-color: #0f2e3d;
+  background-blend-mode: screen;
+  animation: moverFondo 20s ease-in-out infinite alternate;
 }
 
 h1 {
@@ -68,4 +75,14 @@ h1 {
   margin-top: 1rem;
   font-size: 0.85rem;
   color: #444;
+}
+
+/* Animación del fondo */
+@keyframes moverFondo {
+  0% {
+    background-position: 30% 30%, 70% 70%, 50% 100%;
+  }
+  100% {
+    background-position: 20% 20%, 80% 60%, 60% 90%;
+  }
 }
