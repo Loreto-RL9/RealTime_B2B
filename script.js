@@ -32,8 +32,8 @@ function renderPagina() {
     (!requerimientoFiltro || Requerimientos.toLowerCase().includes(requerimientoFiltro))
   );
 
-  const start = paginaActual * 20;
-  const pageItems = filtrados.slice(start, start + 20);
+  const start = paginaActual * 25;
+  const pageItems = filtrados.slice(start, start + 25);
 
   pageItems.forEach(({ Compradores, Disponibilidad, Requerimientos }) => {
     const div = document.createElement("div");
