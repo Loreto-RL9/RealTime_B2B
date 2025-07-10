@@ -5,13 +5,13 @@
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Poppins', sans-serif;
   padding: 1rem;
   height: 100vh;
   display: flex;
   flex-direction: column;
 
-  /* Fondo animado estilo blur abstracto */
+  /* Fondo animado */
   background: radial-gradient(circle at 30% 30%, #ffa96e, transparent 40%),
               radial-gradient(circle at 70% 70%, #3bc8ff, transparent 40%),
               radial-gradient(circle at 50% 100%, #34495e, transparent 50%);
@@ -24,6 +24,7 @@ h1 {
   text-align: center;
   font-size: 1.8rem;
   margin-bottom: 1rem;
+  color: white;
 }
 
 .controls {
