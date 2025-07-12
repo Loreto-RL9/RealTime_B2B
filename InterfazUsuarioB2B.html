@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Actualizar Disponibilidad</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="pantallaInicial">
+    <h2>Bienvenido</h2>
+    <p>Escribe tu nombre exactamente como aparece en la base de datos:</p>
+    <input type="text" id="nombreComprador" placeholder="Tu nombre" />
+    <button onclick="guardarNombre()">Entrar</button>
+  </div>
+
+  <div id="formulario" style="display:none;">
+    <h2>Actualizar tu disponibilidad</h2>
+    <label for="disponibilidad">Disponibilidad:</label>
+    <select id="disponibilidad">
+      <option value="Disponible">Disponible</option>
+      <option value="Ocupado">Ocupado</option>
+      <option value="Break">Break</option>
+    </select>
+
+    <label for="requerimientos">Requerimientos:</label>
+    <select id="requerimientos" multiple>
+      <option value="Logística">Logística</option>
+      <option value="Compras">Compras</option>
+      <option value="Calidad">Calidad</option>
+      <option value="Producción">Producción</option>
+      <option value="TI">TI</option>
+      <option value="Finanzas">Finanzas</option>
+      <option value="RRHH">RRHH</option>
+      <option value="Otros">Otros</option>
+    </select>
+
+    <button onclick="enviarDatos()">Actualizar</button>
+    <p id="mensaje"></p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
