@@ -86,5 +86,5 @@ document.getElementById("filtroRequerimiento").addEventListener("input", () => {
 });
 
 actualizar();
-setInterval(actualizar, 30000); // Refresca datos cada 30 segundos
+setInterval(actualizar, 20000); // Refresca datos cada 30 segundos
 iniciarCarrusel();
