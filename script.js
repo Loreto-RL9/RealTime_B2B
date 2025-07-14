@@ -1,4 +1,4 @@
-const sheetID = '1RNlIfAE7DYteMDfjHWCNi7DIEbsHb6xbxEhfvVSoRsQ';
+const sheetID = '1w350hzNDgfeurVHzZNCjavN2HwbJDH6oL42_7_gwvoQ';
 const sheetName = 'Estado';
 const url = `https://opensheet.elk.sh/${sheetID}/${sheetName}`;
 
