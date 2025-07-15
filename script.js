@@ -1,5 +1,5 @@
 const API_URL = "https://qqegzhoxhzsgcqiulqul.supabase.co";
-const API_KEY = "TU_API_KEY_AQUI";  // Sustituye aquí con tu anon public key de Supabase
+const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFxZWd6aG94aHpzZ2NxaXVscXVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI1MzA0ODUsImV4cCI6MjA2ODEwNjQ4NX0.iAFhr3QoYJDkP1_iXGSsDZAd_f00RxuFK0HCdvo7ryE";  // Sustituye aquí con tu anon public key de Supabase
 
 let nombre = localStorage.getItem("comprador");
 
