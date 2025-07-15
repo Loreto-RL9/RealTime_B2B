@@ -6,12 +6,24 @@ let empresas = [];
 let paginaActual = 0;
 let intervaloCarrusel;
 let pausado = false;
+let totalPaginas = 1;
 
 async function actualizar() {
   try {
     const res = await fetch(url);
     empresas = await res.json();
     paginaActual = 0;
+
+    const estadoFiltro = document.getElementById("filtroEstado").value;
+    const requerimientoFiltro = document.getElementById("filtroRequerimiento").value.toLowerCase();
+
+    const filtrados = empresas.filter(({ Disponibilidad, Requerimientos }) =>
+      (!estadoFiltro || Disponibilidad === estadoFiltro) &&
+      (!requerimientoFiltro || Requerimientos.toLowerCase().includes(requerimientoFiltro))
+    );
+
+    totalPaginas = Math.ceil(filtrados.length / 15) || 1;
+
     renderPagina();
     document.getElementById("timestamp").innerText =
       "Última actualización: " + new Date().toLocaleTimeString();
@@ -50,18 +62,12 @@ function renderPagina() {
 }
 
 function iniciarCarrusel() {
-  intervaloCarrusel = setInterval(() => {
-    const estadoFiltro = document.getElementById("filtroEstado").value;
-    const requerimientoFiltro = document.getElementById("filtroRequerimiento").value.toLowerCase();
-    const filtrados = empresas.filter(({ Disponibilidad, Requerimientos }) =>
-      (!estadoFiltro || Disponibilidad === estadoFiltro) &&
-      (!requerimientoFiltro || Requerimientos.toLowerCase().includes(requerimientoFiltro))
-    );
+  clearInterval(intervaloCarrusel);
 
-    const totalPaginas = Math.ceil(filtrados.length / 15);
+  intervaloCarrusel = setInterval(() => {
     paginaActual = (paginaActual + 1) % totalPaginas;
     renderPagina();
-  }, 20000); // cada 20 segundos
+  }, 20000); // 20 segundos por página
 }
 
 document.getElementById("toggleCarrusel").addEventListener("click", () => {
@@ -86,5 +92,5 @@ document.getElementById("filtroRequerimiento").addEventListener("input", () => {
 });
 
 actualizar();
-setInterval(actualizar, 20000); // Refresca datos cada 20 segundos
 iniciarCarrusel();
+setInterval(actualizar, 30000); // Refresca datos cada 30 segundos
