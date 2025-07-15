@@ -37,7 +37,7 @@ h1 {
 #panel {
   flex: 1;
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* Fuerza 5 tarjetas por fila */
+  grid-template-columns: repeat(5, 1fr); /* 5 tarjetas por fila */
   gap: 1rem;
   padding: 1rem 5vw;
   align-content: start;
@@ -45,12 +45,19 @@ h1 {
 }
 
 .estado {
-  padding: 1rem;
+  padding: 1.2rem;
   border-radius: 12px;
   text-align: center;
-  font-size: 1rem;
+  font-size: 1.05rem; /* Ajuste de tamaño de texto */
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease;
+  line-height: 1.4;
+}
+.estado strong {
+  font-size: 1.1rem;
+}
+.estado em {
+  font-size: 1.05rem;
 }
 .estado:hover {
   transform: scale(1.03);
