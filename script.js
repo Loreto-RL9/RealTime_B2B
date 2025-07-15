@@ -32,8 +32,8 @@ function renderPagina() {
     (!requerimientoFiltro || Requerimientos.toLowerCase().includes(requerimientoFiltro))
   );
 
-  const start = paginaActual * 25;
-  const pageItems = filtrados.slice(start, start + 25);
+  const start = paginaActual * 15;
+  const pageItems = filtrados.slice(start, start + 15);
 
   pageItems.forEach(({ Compradores, Disponibilidad, Requerimientos }) => {
     const div = document.createElement("div");
@@ -58,7 +58,7 @@ function iniciarCarrusel() {
       (!requerimientoFiltro || Requerimientos.toLowerCase().includes(requerimientoFiltro))
     );
 
-    const totalPaginas = Math.ceil(filtrados.length / 25);
+    const totalPaginas = Math.ceil(filtrados.length / 15);
     paginaActual = (paginaActual + 1) % totalPaginas;
     renderPagina();
   }, 20000); // cada 20 segundos
