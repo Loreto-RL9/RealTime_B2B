@@ -89,7 +89,7 @@ h1 {
 /* FOOTER CON LOGOS */
 .footer-logo {
   width: 100%;
-  background-color: black;
+  background-color: grey;
   padding: 2rem 3rem;
   display: flex;
   justify-content: space-between;
@@ -109,8 +109,8 @@ h1 {
 }
 
 .left-logo {
-  height: 50px;
-  max-width: 150px;
+  height: 80px;
+  max-width: 180px;
 }
 
 .right-logo {
@@ -127,5 +127,5 @@ h1 {
 .powered-text {
   font-size: 1.1rem;
   font-weight: 600;
-  color: #333;
+  color: #000;
 }
