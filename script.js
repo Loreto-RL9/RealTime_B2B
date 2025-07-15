@@ -1,3 +1,6 @@
+const API_URL = "https://qqegzhoxhzsgcqiulqul.supabase.co";
+const API_KEY = "TU_API_KEY_AQUI";  // Sustituye aquí con tu anon public key de Supabase
+
 let nombre = localStorage.getItem("comprador");
 
 if (!nombre) {
@@ -22,18 +25,19 @@ function enviar() {
     document.querySelectorAll('#requerimientos input[type="checkbox"]:checked')
   ).map(opt => opt.value);
 
-  fetch(`https://qqegzhoxhzsgcqiulqul.supabase.co/rest/v1/Estado?Compradores=eq.${encodeURIComponent(nombre)}`, {
+  fetch(`${API_URL}/rest/v1/Estado?Compradores=eq.${nombre}`, {
     method: "PATCH",
     headers: {
-      "apikey": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFxZWd6aG94aHpzZ2NxaXVscXVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI1MzA0ODUsImV4cCI6MjA2ODEwNjQ4NX0.iAFhr3QoYJDkP1_iXGSsDZAd_f00RxuFK0HCdvo7ryE",
-      "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFxZWd6aG94aHpzZ2NxaXVscXVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI1MzA0ODUsImV4cCI6MjA2ODEwNjQ4NX0.iAFhr3QoYJDkP1_iXGSsDZAd_f00RxuFK0HCdvo7ryE",
+      "apikey": API_KEY,
+      "Authorization": `Bearer ${API_KEY}`,
       "Content-Type": "application/json",
-      "Prefer": "return=representation"
+      "Prefer": "return=representation",
+      "comprador": nombre  // necesario para activar RLS policy
     },
     body: JSON.stringify({
       Disponibilidad: disponibilidad,
-      Requerimientos: requerimientos,
-    }),
+      Requerimientos: requerimientos
+    })
   })
   .then(res => res.json())
   .then(data => {
