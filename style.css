@@ -1,14 +1,31 @@
+/* Reset general */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: 'Poppins', sans-serif;
-  margin: 0;
-  padding: 2rem;
-  background-color: #fff;
-  color: #333;
+  padding: 1rem;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  /* Fondo animado */
+  background: radial-gradient(circle at 30% 30%, #ffa96e, transparent 40%),
+              radial-gradient(circle at 70% 70%, #3bc8ff, transparent 40%),
+              radial-gradient(circle at 50% 100%, #34495e, transparent 50%);
+  background-color: #0f2e3d;
+  background-blend-mode: screen;
+  animation: moverFondo 20s ease-in-out infinite alternate;
 }
 
 h1 {
   text-align: center;
+  font-size: 2.5rem;
   margin-bottom: 1rem;
+  color: white;
 }
 
 .controls {
@@ -21,27 +38,57 @@ h1 {
 }
 
 #panel {
+  flex: 1;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 1rem;
+  padding: 1rem 5vw;
+  align-content: start;
+  overflow-y: auto;
   max-width: 1000px;
   margin: auto;
 }
 
+/* Tarjetas */
 .estado {
-  background: #f3f3f3;
   padding: 1rem;
   border-radius: 12px;
+  text-align: center;
+  font-size: 1rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+.estado:hover {
+  transform: scale(1.03);
 }
 
-.estado strong {
-  font-weight: bold;
+/* Colores según disponibilidad */
+.Disponible {
+  background-color: #ccffd5;
+  color: #0b6b2f;
+}
+.Ocupado {
+  background-color: #ffe3b3;
+  color: #b15900;
+}
+.Receso {
+  background-color: #d4ecff;
+  color: #1d4f91;
 }
 
 #timestamp {
   text-align: center;
   margin-top: 1rem;
-  font-size: 0.9rem;
-  color: #666;
+  font-size: 0.85rem;
+  color: #f0f0f0;
+}
+
+/* Animación del fondo */
+@keyframes moverFondo {
+  0% {
+    background-position: 30% 30%, 70% 70%, 50% 100%;
+  }
+  100% {
+    background-position: 20% 20%, 80% 60%, 60% 90%;
+  }
 }
