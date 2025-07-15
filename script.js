@@ -1,5 +1,5 @@
 const API_URL = "https://qqegzhoxhzsgcqiulqul.supabase.co";
-const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFxZWd6aG94aHpzZ2NxaXVscXVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI1MzA0ODUsImV4cCI6MjA2ODEwNjQ4NX0.iAFhr3QoYJDkP1_iXGSsDZAd_f00RxuFK0HCdvo7ryE"; // Sustituir por la anon public key
+const API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFxZWd6aG94aHpzZ2NxaXVscXVsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTI1MzA0ODUsImV4cCI6MjA2ODEwNjQ4NX0.iAFhr3QoYJDkP1_iXGSsDZAd_f00RxuFK0HCdvo7ryE"; // Reemplaza con tu anon key real
 
 let empresas = [];
 let paginaActual = 0;
@@ -14,6 +14,7 @@ async function actualizar() {
         Authorization: `Bearer ${API_KEY}`
       }
     });
+
     empresas = await res.json();
     paginaActual = 0;
     renderPagina();
@@ -36,18 +37,18 @@ function renderPagina() {
     (!requerimientoFiltro || (Requerimientos || "").toLowerCase().includes(requerimientoFiltro))
   );
 
-  const start = paginaActual * 25;
-  const pageItems = filtrados.slice(start, start + 25);
+  const itemsPorPagina = 20;
+  const start = paginaActual * itemsPorPagina;
+  const pageItems = filtrados.slice(start, start + itemsPorPagina);
 
   pageItems.forEach(({ Compradores, Disponibilidad, Requerimientos }) => {
     const div = document.createElement("div");
     const emoji =
-      Disponibilidad === "Disponible"
-        ? "🟢"
-        : Disponibilidad === "Ocupado"
-        ? "🟠"
-        : "☕";
-    div.className = `estado ${Disponibilidad.replace(/\s/g, '')}`;
+      Disponibilidad === "Disponible" ? "🟢" :
+      Disponibilidad === "Ocupado" ? "🟠" :
+      "☕";
+
+    div.className = `tarjeta ${Disponibilidad.replace(/\s/g, '')}`;
     div.innerHTML = `<strong>${emoji} ${Compradores}</strong> - ${Disponibilidad}<br><em>${Requerimientos || ""}</em>`;
     panel.appendChild(div);
   });
@@ -57,15 +58,16 @@ function iniciarCarrusel() {
   intervaloCarrusel = setInterval(() => {
     const estadoFiltro = document.getElementById("filtroEstado").value;
     const requerimientoFiltro = document.getElementById("filtroRequerimiento").value.toLowerCase();
+
     const filtrados = empresas.filter(({ Disponibilidad, Requerimientos }) =>
       (!estadoFiltro || Disponibilidad === estadoFiltro) &&
       (!requerimientoFiltro || (Requerimientos || "").toLowerCase().includes(requerimientoFiltro))
     );
 
-    const totalPaginas = Math.ceil(filtrados.length / 25);
-    paginaActual = (paginaActual + 1) % totalPaginas;
+    const totalPaginas = Math.ceil(filtrados.length / 20);
+    paginaActual = (paginaActual + 1) % (totalPaginas || 1); // Evita división por 0
     renderPagina();
-  }, 20000); // cada 20 segundos
+  }, 10000); // Cada 10 segundos
 }
 
 document.getElementById("toggleCarrusel").addEventListener("click", () => {
@@ -90,5 +92,5 @@ document.getElementById("filtroRequerimiento").addEventListener("input", () => {
 });
 
 actualizar();
-setInterval(actualizar, 20000); // cada 20 segundos
+setInterval(actualizar, 20000); // Actualizar datos cada 20 segundos
 iniciarCarrusel();
