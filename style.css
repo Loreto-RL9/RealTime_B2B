@@ -37,7 +37,7 @@ h1 {
 #panel {
   flex: 1;
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* Fuerza 5 tarjetas por fila */
+  grid-template-columns: repeat(4, 1fr); /* Fuerza 5 tarjetas por fila */
   gap: 1rem;
   padding: 1rem 5vw;
   align-content: start;
