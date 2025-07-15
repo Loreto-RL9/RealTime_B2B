@@ -30,7 +30,7 @@ function aplicarFiltrosYRender() {
     (!requerimientoFiltro || Requerimientos.toLowerCase().includes(requerimientoFiltro))
   );
 
-  totalPaginas = Math.ceil(filtrados.length / 20) || 1;
+  totalPaginas = Math.ceil(filtrados.length / 16) || 1;
 
   if (paginaActual >= totalPaginas) {
     paginaActual = 0;
@@ -43,8 +43,8 @@ function renderPagina() {
   const panel = document.getElementById("panel");
   panel.innerHTML = "";
 
-  const start = paginaActual * 20;
-  const pageItems = filtrados.slice(start, start + 20);
+  const start = paginaActual * 16;
+  const pageItems = filtrados.slice(start, start + 16);
 
   pageItems.forEach(({ Compradores, Disponibilidad, Requerimientos }) => {
     const div = document.createElement("div");
