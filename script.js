@@ -6,25 +6,14 @@ let empresas = [];
 let paginaActual = 0;
 let intervaloCarrusel;
 let pausado = false;
+let filtrados = [];
 let totalPaginas = 1;
 
 async function actualizar() {
   try {
     const res = await fetch(url);
     empresas = await res.json();
-    paginaActual = 0;
-
-    const estadoFiltro = document.getElementById("filtroEstado").value;
-    const requerimientoFiltro = document.getElementById("filtroRequerimiento").value.toLowerCase();
-
-    const filtrados = empresas.filter(({ Disponibilidad, Requerimientos }) =>
-      (!estadoFiltro || Disponibilidad === estadoFiltro) &&
-      (!requerimientoFiltro || Requerimientos.toLowerCase().includes(requerimientoFiltro))
-    );
-
-    totalPaginas = Math.ceil(filtrados.length / 15) || 1;
-
-    renderPagina();
+    aplicarFiltrosYRender();
     document.getElementById("timestamp").innerText =
       "Última actualización: " + new Date().toLocaleTimeString();
   } catch (error) {
@@ -32,17 +21,27 @@ async function actualizar() {
   }
 }
 
-function renderPagina() {
-  const panel = document.getElementById("panel");
-  panel.innerHTML = "";
-
+function aplicarFiltrosYRender() {
   const estadoFiltro = document.getElementById("filtroEstado").value;
   const requerimientoFiltro = document.getElementById("filtroRequerimiento").value.toLowerCase();
 
-  const filtrados = empresas.filter(({ Disponibilidad, Requerimientos }) =>
+  filtrados = empresas.filter(({ Disponibilidad, Requerimientos }) =>
     (!estadoFiltro || Disponibilidad === estadoFiltro) &&
     (!requerimientoFiltro || Requerimientos.toLowerCase().includes(requerimientoFiltro))
   );
+
+  totalPaginas = Math.ceil(filtrados.length / 15) || 1;
+
+  if (paginaActual >= totalPaginas) {
+    paginaActual = 0;
+  }
+
+  renderPagina();
+}
+
+function renderPagina() {
+  const panel = document.getElementById("panel");
+  panel.innerHTML = "";
 
   const start = paginaActual * 15;
   const pageItems = filtrados.slice(start, start + 15);
@@ -63,11 +62,10 @@ function renderPagina() {
 
 function iniciarCarrusel() {
   clearInterval(intervaloCarrusel);
-
   intervaloCarrusel = setInterval(() => {
     paginaActual = (paginaActual + 1) % totalPaginas;
     renderPagina();
-  }, 20000); // 20 segundos por página
+  }, 20000);
 }
 
 document.getElementById("toggleCarrusel").addEventListener("click", () => {
@@ -84,13 +82,14 @@ document.getElementById("toggleCarrusel").addEventListener("click", () => {
 
 document.getElementById("filtroEstado").addEventListener("change", () => {
   paginaActual = 0;
-  renderPagina();
+  aplicarFiltrosYRender();
 });
 document.getElementById("filtroRequerimiento").addEventListener("input", () => {
   paginaActual = 0;
-  renderPagina();
+  aplicarFiltrosYRender();
 });
 
+// Carga inicial
 actualizar();
+setInterval(actualizar, 20000); // Actualiza datos cada 20 segundos
 iniciarCarrusel();
-setInterval(actualizar, 30000); // Refresca datos cada 30 segundos
