@@ -1,45 +1,32 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Actualizar disponibilidad</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Encuentros B2B</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="modal" id="modalNombre">
-    <div class="modal-content">
-      <h3>Ingresa tu nombre asignado</h3>
-      <input type="text" id="inputNombre" placeholder="Ejemplo: DIEHL">
-      <button onclick="guardarNombre()">Continuar</button>
-    </div>
-  </div>
+  <h1>Encuentros B2B - Querétaro Automotive Summit 2025</h1>
 
-  <div class="card" id="formularioCard">
-    <h2>Actualizar tu disponibilidad</h2>
-
-    <label for="disponibilidad">Disponibilidad:</label>
-    <select id="disponibilidad">
+  <div class="controls">
+    <label for="filtroEstado">Estado:</label>
+    <select id="filtroEstado">
+      <option value="">Todos</option>
       <option value="Disponible">Disponible</option>
       <option value="Ocupado">Ocupado</option>
       <option value="Receso">Receso</option>
     </select>
 
-    <label for="requerimientos">Requerimientos:</label>
-    <div class="checkboxes" id="requerimientos">
-      <label><input type="checkbox" value="PLASTICS">PLASTICS</label>
-      <label><input type="checkbox" value="METAL MECHANICS">METAL MECHANICS</label>
-      <label><input type="checkbox" value="ELECTRONICS">ELECTRONICS</label>
-      <label><input type="checkbox" value="PACKAGING">PACKAGING</label>
-      <label><input type="checkbox" value="COMMUNICATION AND INFORMATION TECHNOLOGIES">COMMUNICATION AND INFORMATION TECHNOLOGIES</label>
-      <label><input type="checkbox" value="TEXTILE">TEXTILE</label>
-      <label><input type="checkbox" value="SPECIALIZED SERVICES">SPECIALIZED SERVICES</label>
-      <label><input type="checkbox" value="MROS">MROS</label>
-    </div>
+    <label for="filtroRequerimiento">Requerimiento:</label>
+    <input type="text" id="filtroRequerimiento" placeholder="Buscar..." />
 
-    <button onclick="enviar()">Actualizar</button>
-    <div id="mensaje"></div>
+    <button id="toggleCarrusel">⏸️ Pausar</button>
   </div>
+
+  <div id="panel"></div>
+  <div id="timestamp"></div>
 
   <script src="script.js"></script>
 </body>
