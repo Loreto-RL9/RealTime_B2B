@@ -1,127 +1,90 @@
-body {
-  font-family: 'Segoe UI', sans-serif;
-  background: linear-gradient(rgba(255,255,255,0.85), rgba(255,255,255,0.85)),
-              url('https://drive.google.com/uc?export=view&id=1yWdY-cv_8akWfHa6F2TiPbH8mZTFeFVl');
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-}
-
-.card {
-  background: white;
-  padding: 2rem;
-  border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-  max-width: 420px;
-  width: 100%;
-  animation: fadeIn 0.5s ease-in-out;
-  display: none;
-}
-
-h2 {
-  color: #003366;
-  text-align: center;
-  margin-bottom: 1rem;
-}
-
-label {
-  font-weight: 600;
-  margin-top: 1rem;
-  display: block;
-}
-
-select, .checkboxes {
-  width: 100%;
-  padding: 0.5rem;
-  margin-top: 0.5rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 1rem;
+* {
   box-sizing: border-box;
-}
-
-.checkboxes {
+  margin: 0;
   padding: 0;
-  border: none;
 }
 
-.checkboxes label {
-  display: inline-block;
-  background-color: #eef1f5;
-  padding: 8px 12px;
-  border-radius: 8px;
-  margin: 6px 6px 0 0;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-
-.checkboxes label:hover {
-  background-color: #dce2eb;
-}
-
-.checkboxes input {
-  margin-right: 6px;
-}
-
-button {
-  margin-top: 1rem;
-  width: 100%;
-  padding: 12px;
-  background-color: #0057d8;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-button:hover {
-  background-color: #003eaa;
-}
-
-#mensaje {
-  text-align: center;
-  margin-top: 1rem;
-  font-weight: bold;
-}
-
-.modal {
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: rgba(0,0,0,0.4);
+body {
+  font-family: 'Poppins', sans-serif;
+  padding: 1rem;
+  min-height: 100vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+  flex-direction: column;
+
+  background: radial-gradient(circle at 30% 30%, #ffa96e, transparent 40%),
+              radial-gradient(circle at 70% 70%, #3bc8ff, transparent 40%),
+              radial-gradient(circle at 50% 100%, #34495e, transparent 50%);
+  background-color: #0f2e3d;
+  background-blend-mode: screen;
+  animation: moverFondo 20s ease-in-out infinite alternate;
 }
 
-.modal-content {
-  background: #fff;
-  padding: 2rem;
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+#panel {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+  padding: 1rem 5vw;
+  align-content: start;
+  overflow-y: auto;
+}
+
+/* Tarjetas */
+.estado {
+  padding: 1rem;
   border-radius: 12px;
   text-align: center;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-  width: 90%;
-  max-width: 400px;
-}
-
-.modal input {
-  width: 100%;
-  padding: 10px;
-  margin-top: 1rem;
   font-size: 1rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  background-color: white;
+}
+.estado:hover {
+  transform: scale(1.03);
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+.Disponible {
+  background-color: #ccffd5;
+  color: #0b6b2f;
+}
+.Ocupado {
+  background-color: #ffe3b3;
+  color: #b15900;
+}
+.Receso {
+  background-color: #d4ecff;
+  color: #1d4f91;
+}
+
+#timestamp {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: white;
+}
+
+/* Fondo animado */
+@keyframes moverFondo {
+  0% {
+    background-position: 30% 30%, 70% 70%, 50% 100%;
+  }
+  100% {
+    background-position: 20% 20%, 80% 60%, 60% 90%;
+  }
 }
